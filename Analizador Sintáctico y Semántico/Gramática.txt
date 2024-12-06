@@ -1,0 +1,61 @@
+expr -> expr + term | exp - term | term
+term -> term * factor | term / factor | factor
+factor -> digito | ( expr )
+digito -> 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+
+------------------------------------------------------------------------
+
+T = [+,-,*,/,(,),0,1,2,3,4,5,6,7,8,9]
+NT = [expr, term, resto_expr, factor, resto_term, digito]
+S = [expr]
+
+expr -> term resto_expr
+resto_expr -> + term resto_expr | - term resto_expr | ε
+term -> factor resto_term
+resto_term -> * factor resto_term | / factor resto_term | ε
+factor -> digito | ( expr )
+digito -> 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+
+-------------------------------------------------------------------------
+
+Reglas de producción:
+    1. expr -> term resto_expr
+    2. resto_expr -> + term resto_expr
+    3. resto_expr -> - term resto_expr
+    4. resto_expr -> ε
+    5. term -> factor resto_term
+    6. resto_term -> * factor resto_term
+    7. resto_term -> / factor resto_term
+    8. resto_term -> ε
+    9. factor -> digito
+    10. factor -> ( expr )
+    11. digito -> 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+
+Reglas de semánticas:
+    1. expr.her = term.t
+    expr.t = resto_expr.t
+
+    2. resto_expr.her = resto_expr.her || '+'
+    resto_expr.t = resto_expr.t
+
+    3. resto_expr.her = resto_expr.her  || '-'
+    resto_expr.t = resto_expr.t
+
+    4. resto_expr.t = resto_expr.her
+
+    5. term.her = factor.t
+    term.t = resto_term.t
+
+    6. resto_term.her = resto_term.her  || '*'
+    resto_term.t = resto_term.t
+
+    7. resto_term.her = resto_term.her  || '/'
+    resto_term.t = resto_term.t
+
+    8. resto_term.t = resto_term.her
+
+    9. factor.t = digito.t
+
+    10. factor.t = expr.t 
+    
+    11. digito.t = '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9'

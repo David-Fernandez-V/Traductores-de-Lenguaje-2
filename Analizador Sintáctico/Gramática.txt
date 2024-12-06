@@ -1,0 +1,29 @@
+expr -> expr + term | exp - term | term
+term -> term * factor | term / factor | factor
+factor -> digito | ( expr )
+digito -> 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+
+------------------------------------------------------------------------
+
+T = [+,-,*,/,(,),0,1,2,3,4,5,6,7,8,9]
+NT = [expr, term, resto_expr, factor, resto_term, digito]
+S = [expr]
+
+expr -> term resto_expr
+resto_expr -> + term resto_expr | - term resto_expr | ε
+term -> factor resto_term
+resto_term -> * factor resto_term | / factor resto_term | ε
+factor -> digito | ( expr )
+digito -> 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+
+------------------------------------------------------------------------
+
+T = [+,-,*,/,(,),0,1,2,3,4,5,6,7,8,9]
+NT = [expr, term, resto_expr, factor, resto_term]
+S = [expr]
+
+expr -> term resto_expr
+resto_expr -> + term resto_expr | - term resto_expr | ε
+term -> factor resto_term
+resto_term -> * factor resto_term | / factor resto_term | ε
+factor -> 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | ( expr )

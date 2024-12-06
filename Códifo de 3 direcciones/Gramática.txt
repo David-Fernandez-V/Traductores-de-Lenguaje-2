@@ -1,0 +1,56 @@
+Gramática Original
+
+Producción:
+1) E -> E' + T
+2) E -> E' - T
+3) E -> T
+4) T -> (E)
+5) T -> id
+6) T -> num
+
+Semántica:
+1) E.nodo = new Nodo('+', E'.nodo, T.nodo)
+2) E.nodo = new Nodo('−', E'.nodo, T.nodo)
+3) E.nodo = T.nodo
+4) T.nodo = E.nodo
+5) T.nodo = new Hoja(id, id.entrada)
+6) T.nodo = new Hoja(num, num.val)
+----------------------------------------------------------------------------------------------------------------------------------
+Agregando * y /
+
+Producción:
+1) E -> E + T
+2) E -> E - T
+3) E -> T
+4) T -> T * F
+5) T -> T / F
+6) T -> F
+7) F -> (E)
+8) F -> id
+9) F -> num
+
+Semántica:
+1) E.nodo = new Nodo('+', E'.nodo, T.nodo)
+2) E.nodo = new Nodo('−', E'.nodo, T.nodo)
+3) E.nodo = T.nodo
+4) T.nodo = new Nodo('*', T'.nodo, F.nodo)
+5) T.nodo = new Nodo('/', T'.nodo, F.nodo)
+6) T.nodo = F.nodo
+7) F.nodo = E.nodo
+8) F.nodo = new Hoja(id, id.entrada)
+9) F.nodo = new Hoja(num, num.val)
+----------------------------------------------------------------------------------------------------------------------------------
+Quitando Recursión por la izquierda
+
+Producción:
+1) E -> T RE
+2) RE -> + T RE
+3) RE -> - T RE
+4) RE -> ε
+5) T -> F RT
+6) RT -> * F RT
+7) RT -> / F RT
+8) RT -> ε
+9) F -> (E)
+10) F -> id
+11) F -> num
